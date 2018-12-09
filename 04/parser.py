@@ -61,16 +61,45 @@ def parser(input_doc_path):
 
     solution = sleepiest_guard * best_minute
 
+    logging.warning("PROBLEM 1")
+    logging.warning("***")
     logging.warning(sleepiest_guard)
     logging.warning(duration)
     logging.warning(best_minute)
     logging.warning(solution)
+    logging.warning('***')
+    logging.warning('')
+    logging.warning('')
+
+    _find_sleepiest_minute(guard_sleep_minutes_dict)
     return
 
 
 def _find_best_minute(guard_id, guard_sleep_minutes_dict):
     sleep_range = guard_sleep_minutes_dict[guard_id]
     return max(sleep_range, key=sleep_range.count)
+
+
+def _find_sleepiest_minute(guard_sleep_minutes_dict):
+    guard_id = 0
+    sleepiest_minute = 0
+    sleep_times = 0
+
+    for guard in guard_sleep_minutes_dict:
+        guard_sleep_minutes_counter = Counter(guard_sleep_minutes_dict[guard])
+        for k in guard_sleep_minutes_counter:
+            if guard_sleep_minutes_counter[k] > sleep_times:
+                guard_id = guard
+                sleepiest_minute = k
+                sleep_times = guard_sleep_minutes_counter[k]
+
+    logging.warning("PROBLEM 2")
+    logging.warning("***")
+    logging.warning(guard_id)
+    logging.warning(sleepiest_minute)
+    logging.warning(guard_id*sleepiest_minute)
+    logging.warning('***')
+    return
 
 
 def _create_or_update_guard(guard_duration_dict, guard_sleep_minutes_dict, guard_id, duration, sleep_range):
