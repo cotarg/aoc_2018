@@ -33,11 +33,11 @@ def parser(input_doc_path):
             list_counts = Counter(chunked_logline)
 
             if list_counts['begins'] == 1:
-                if sleep_flag == True:
+                if sleep_flag is True:
                     end_minutes = _parse_minutes(chunked_logline)
                     sleep_range = range(start_minutes, end_minutes)
                     _create_or_update_guard(
-                        guard_duration_dict, guard_sleep_minutes_dict, guard_id, sleep_duration, sleep_range)
+                        guard_duration_dict, guard_sleep_minutes_dict, guard_id, sleep_duration, sleep_range) # noqa
                 guard_id = _parse_guard(chunked_logline)
                 sleep_flag = False
 
@@ -51,7 +51,7 @@ def parser(input_doc_path):
                 sleep_duration = _calculate_duration(
                     start_minutes, end_minutes)
                 _create_or_update_guard(
-                    guard_duration_dict, guard_sleep_minutes_dict, guard_id, sleep_duration, sleep_range)
+                    guard_duration_dict, guard_sleep_minutes_dict, guard_id, sleep_duration, sleep_range) # noqa
                 sleep_flag = False
 
     # find upper limit in dictionary
@@ -97,12 +97,12 @@ def _find_sleepiest_minute(guard_sleep_minutes_dict):
     logging.warning("***")
     logging.warning(guard_id)
     logging.warning(sleepiest_minute)
-    logging.warning(guard_id*sleepiest_minute)
+    logging.warning(guard_id * sleepiest_minute)
     logging.warning('***')
     return
 
 
-def _create_or_update_guard(guard_duration_dict, guard_sleep_minutes_dict, guard_id, duration, sleep_range):
+def _create_or_update_guard(guard_duration_dict, guard_sleep_minutes_dict, guard_id, duration, sleep_range): # noqa
     if guard_duration_dict[guard_id]:
         guard_duration_dict[guard_id] += duration
         for minute in sleep_range:
